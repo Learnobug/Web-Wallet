@@ -1,73 +1,58 @@
-# React + TypeScript + Vite
+# Web Wallet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A non-custodial, browser-based crypto wallet built with **React**, **TypeScript**, and **Vite**. Generate or import a BIP-39 seed phrase and instantly derive Ethereum and Solana accounts — all keys are computed client-side and never leave your device.
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+https://github.com/user-attachments/assets/11c70c55-2c97-428e-a383-a4cfb209caa2
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Generate wallet** — creates a cryptographically secure 12-word BIP-39 mnemonic
+- **Import wallet** — restore an existing wallet from any valid seed phrase
+- **Multi-chain accounts** — derives Ethereum (`m/44'/60'`) and Solana (`m/44'/501'`) keypairs from a single seed
+- **Multiple accounts** — add as many accounts as you need, each with its own keypair
+- **Balance lookup** — fetch live on-chain balance for any account via the backend RPC proxy
+- **Private key protection** — secret keys are blurred by default; click to reveal
+- **Dark UI** — clean, minimal dark-themed interface
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Layer | Tools |
+|-------|-------|
+| Frontend | React 19, TypeScript, Vite, react-router-dom |
+| Crypto | bip39, ed25519-hd-key, @solana/web3.js, ethers.js |
+| Backend | Node.js, Express, Axios |
+| RPC | Alchemy (Ethereum + Solana mainnet) |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Frontend
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd web-wallet
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Backend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd backend-web-wallet
+npm install
+npm run dev
 ```
+
+The frontend runs on `http://localhost:5173` and the backend on `http://localhost:5000`.
+
+## How It Works
+
+1. **Dashboard** — choose to generate a new wallet or import an existing one via seed phrase
+2. **Mnemonic page** — your seed phrase is shown (hidden by default, click to reveal); a warning reminds you to keep it safe
+3. **Accounts** — click **+ Add Account** to derive a new Ethereum + Solana keypair; click **Get Balance** on any account to fetch its current on-chain balance
+
+## Security Notes
+
+- Keys are derived entirely in the browser — the backend only proxies RPC calls and never sees your seed or private keys
+- Never share your seed phrase with anyone
+- This project is for educational purposes; use a hardware wallet for significant funds
