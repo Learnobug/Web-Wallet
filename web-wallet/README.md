@@ -4,7 +4,7 @@ A non-custodial, browser-based crypto wallet built with **React**, **TypeScript*
 
 ## Demo
 
-https://github.com/user-attachments/assets/11c70c55-2c97-428e-a383-a4cfb209caa2
+https://github.com/user-attachments/assets/1fcc4b1d-f3dd-4206-ba24-9b7dfb9ea4d0
 
 ## Features
 
